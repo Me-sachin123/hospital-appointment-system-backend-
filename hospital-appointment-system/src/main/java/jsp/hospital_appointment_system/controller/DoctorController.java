@@ -5,10 +5,8 @@ import jsp.hospital_appointment_system.modal.Doctor;
 import jsp.hospital_appointment_system.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/doctor")
@@ -22,5 +20,47 @@ public class DoctorController {
     {
         return ResponseEntity.ok(doctorService.saveDoctor(doctor));
     }
+
+    @GetMapping()
+    public ResponseEntity<ResponseDto<List<Doctor>>> getAllDoctors()
+    {
+        return ResponseEntity.ok(doctorService.getAllDoctors());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto<Doctor>> getDoctorById(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(doctorService.getDoctorById(id));
+    }
+
+    @GetMapping("dept/{id}")
+    public ResponseEntity<ResponseDto<List<Doctor>>> getDoctorByDepartment(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(doctorService.getDoctorByDepartment(id));
+    }
+
+    @GetMapping("by/{specialization}")
+    public ResponseEntity<ResponseDto<List<Doctor>>> getDoctorByDepartment(@PathVariable String specialization)
+    {
+        return ResponseEntity.ok(doctorService.getDoctorBySpecialization(specialization));
+    }
+
+    //handle exception for value that not enum
+    @GetMapping("/avialday")
+    public ResponseEntity<ResponseDto<List<Doctor>>> getByAvailableDays(@RequestBody List<Doctor.DayOfWeek> days)
+    {
+        return ResponseEntity.ok(doctorService.getByAvailableDays(days));
+    }
+
+    @PatchMapping
+    public ResponseEntity<ResponseDto<String>> updateAvailability(@RequestBody Doctor doctor)
+    {
+        return ResponseEntity.ok(doctorService.updateAvailability(doctor));
+    }
+
+    //impl getByAppointment
+
+
+    //impl getByPatient
 
 }

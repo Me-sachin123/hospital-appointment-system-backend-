@@ -50,6 +50,7 @@ public class GlobalExceptionHandler {
 
     //----------------------------------------------Doctor Exception handlers----------------------------------------------------//
 
+    //for insufficient details for create doctor
     @ExceptionHandler(InsufficientDoctorInformationException.class)
     public ExceptionResponseDto insufficientDoctorInformationException(InsufficientDoctorInformationException exception)
     {
@@ -59,4 +60,35 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    //for empty doctor record
+    @ExceptionHandler(NoDoctorAvailableException.class)
+    public ExceptionResponseDto insufficientDoctorInformationException(NoDoctorAvailableException exception)
+    {
+        return ExceptionResponseDto.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message(exception.getMessage())
+                .build();
+    }
+
+    //-----------------------------------patient exception-----------------------------------------------------//
+    @ExceptionHandler(NoPatientAvailableException.class)
+    public ExceptionResponseDto noPatientAvailableException(NoPatientAvailableException exception)
+    {
+        return ExceptionResponseDto.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message(exception.getMessage())
+                .build();
+    }
+
+
+
+    //---------------------------------Appointment exception----------------------------------------------------//
+    @ExceptionHandler(InvalidAppointmentException.class)
+    public ExceptionResponseDto invalidAppointmentException(InvalidAppointmentException exception)
+    {
+        return ExceptionResponseDto.builder()
+                .status(HttpStatus.ALREADY_REPORTED)
+                .message(exception.getMessage())
+                .build();
+    }
 }
