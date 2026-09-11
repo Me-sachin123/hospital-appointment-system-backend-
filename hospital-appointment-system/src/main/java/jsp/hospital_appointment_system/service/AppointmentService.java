@@ -87,4 +87,100 @@ public class AppointmentService {
                 .build();
     }
 
+    public ResponseDto<List<Appointment>> getAllAppointment() {
+
+        List<Appointment> appointments = appointmentRepository.findAll();
+
+        if (appointments.isEmpty())
+            throw new InvalidAppointmentException("No appointment available");
+
+        return ResponseDto.<List<Appointment>>builder()
+                .status(HttpStatus.OK)
+                .message("Success")
+                .data(appointments)
+                .build();
+    }
+
+    public ResponseDto<Appointment> getById(Long id) {
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new InvalidAppointmentException("no appointment available by id :" + id));
+
+        return ResponseDto.<Appointment>builder()
+                .status(HttpStatus.OK)
+                .message("Success")
+                .data(appointment)
+                .build();
+    }
+
+    public ResponseDto<List<Appointment>> getByDoctor(long id) {
+
+        Doctor doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new NoDoctorAvailableException("no doctor exists by id :" + id));
+
+        return ResponseDto.<List<Appointment>>builder()
+                .status(HttpStatus.OK)
+                .message("success")
+                .data(doctor.getAppointments())
+                .build();
+    }
+
+    public ResponseDto<List<Appointment>> getByPatient(Long id) {
+
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new NoPatientAvailableException("no patient available by id :" + id));
+
+        return ResponseDto.<List<Appointment>>builder()
+                .status(HttpStatus.OK)
+                .message("success")
+                .data(patient.getAppointments())
+                .build();
+
+    }
+
+    public ResponseDto<List<Appointment>> getByAppointmentStatus(String status) {
+
+        List<Appointment> appointments = appointmentRepository.getByStatus(Appointment.Status.valueOf(status.toUpperCase()));
+
+        return ResponseDto.<List<Appointment>>builder()
+                .status(HttpStatus.OK)
+                .message("success")
+                .data(appointments)
+                .build();
+    }
+
+    public ResponseDto<String> cancelAppointment(Long id) {
+
+        Appointment appointment=appointmentRepository.findById(id)
+                .orElseThrow(()->new InvalidAppointmentException("no appointment exists by id"+id));
+
+        if(appointment.getStatus()== Appointment.Status.CANCELLED)
+            throw new InvalidAppointmentException("Can't update appointment status already cancled");
+
+        appointment.setStatus(Appointment.Status.CANCELLED);
+        appointmentRepository.save(appointment);
+
+        return ResponseDto.<String>builder()
+                .status(HttpStatus.OK)
+                .message("Success")
+                .data("Deleted")
+                .build();
+    }
+
+    public ResponseDto<String> updateAppointmentStatus(Long id,String status) {
+
+        Appointment appointment=appointmentRepository.findById(id)
+                .orElseThrow(()->new InvalidAppointmentException("appointment unavailable"));
+
+        appointment.setStatus(Appointment.Status.valueOf(status));
+        appointmentRepository.save(appointment);
+
+        return ResponseDto.<String>builder()
+                .status(HttpStatus.OK)
+                .message("Success")
+                .data("status updated")
+                .build();
+
+
+    }
 }

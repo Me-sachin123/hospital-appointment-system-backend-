@@ -38,4 +38,6 @@ public class Appointment {
     {
         PENDING, CONFIRMED, CANCELLED, COMPLETED
     }
+
+
 }

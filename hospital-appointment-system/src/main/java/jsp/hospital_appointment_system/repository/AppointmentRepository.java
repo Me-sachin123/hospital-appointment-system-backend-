@@ -7,11 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
     //for check patient multiple appointment
     boolean existsByPatientAndAppointmentDateTime(Patient patient, LocalDateTime start, LocalDateTime end);
+
+    List<Appointment> getByStatus(Appointment.Status status);
 
     //for check doctor multiple appointment
    // boolean existsByDoctorAndAppointmentDateAndTime(Doctor doctor, LocalDateTime start, LocalDateTime end);

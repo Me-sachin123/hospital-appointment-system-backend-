@@ -25,11 +25,52 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.createAppointment(appointment));
     }
 
-    //handle a exception method mismatch exception
+    @GetMapping
+    public ResponseEntity<ResponseDto<List<Appointment>>> getAllAppointment()
+    {
+        return ResponseEntity.ok(appointmentService.getAllAppointment());
+    }
+
+    //handle an exception method mismatch exception
     @GetMapping("/appointmnet/{date}")
     public ResponseEntity<ResponseDto<List<Appointment>>> getPatientByAppointmentDate(@PathVariable LocalDate date)
     {
         return ResponseEntity.ok(appointmentService.getByAppointmentDate(date));
     }
 
+    @GetMapping("by/{id}")
+    public ResponseEntity<ResponseDto<Appointment>> getByAppointmentId(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(appointmentService.getById(id));
+    }
+
+    @GetMapping("doctor/{id}")
+    public ResponseEntity<ResponseDto<List<Appointment>>> getByDoctor(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(appointmentService.getByDoctor(id));
+    }
+
+    @GetMapping("patient/{id}")
+    public ResponseEntity<ResponseDto<List<Appointment>>> getByPatient(@PathVariable Long id )
+    {
+        return ResponseEntity.ok(appointmentService.getByPatient(id));
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<ResponseDto<List<Appointment>>> getByStatus(@PathVariable String status)
+    {
+        return ResponseEntity.ok(appointmentService.getByAppointmentStatus(status));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDto<String>> cancelAppointment(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(appointmentService.cancelAppointment(id));
+    }
+
+    @PatchMapping("/{id}/{status}")
+    public ResponseEntity<ResponseDto<String>> updateAppointmentStatus(@PathVariable Long id,@PathVariable String status)
+    {
+        return ResponseEntity.ok(appointmentService.updateAppointmentStatus(id,status));
+    }
 }
