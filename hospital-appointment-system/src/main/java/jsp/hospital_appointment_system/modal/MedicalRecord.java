@@ -1,5 +1,6 @@
 package jsp.hospital_appointment_system.modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,8 +33,7 @@ public class MedicalRecord {
     @JoinColumn(name="patient_id")
     private Patient patient;
 
-    //add List<Prescription>mapping
-
     @OneToOne(mappedBy = "medicalRecord",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Prescription prescriptions;
 }

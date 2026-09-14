@@ -28,12 +28,12 @@ public class Doctor {
     @ManyToOne
     private Department department;
 
-    //add private List<DaysOfWeek> availabity
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<DayOfWeek> availability;
 
-    //add appointment mapping
+
     @JsonIgnore
     @OneToMany(mappedBy = "doctor",cascade=CascadeType.ALL)
     private List<Appointment> appointments;
@@ -41,7 +41,7 @@ public class Doctor {
     @JsonIgnore
     @OneToMany(mappedBy = "doctor" ,cascade=CascadeType.ALL)
     private List<MedicalRecord> records;
-    //add medicalrecord mapping
+
 
     public enum DayOfWeek{
        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY

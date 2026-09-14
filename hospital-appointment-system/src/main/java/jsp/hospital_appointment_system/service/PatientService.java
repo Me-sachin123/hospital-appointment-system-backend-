@@ -4,9 +4,11 @@ import jsp.hospital_appointment_system.dto.ResponseDto;
 import jsp.hospital_appointment_system.exception.Business_exception.*;
 import jsp.hospital_appointment_system.modal.Appointment;
 import jsp.hospital_appointment_system.modal.Doctor;
+import jsp.hospital_appointment_system.modal.MedicalRecord;
 import jsp.hospital_appointment_system.modal.Patient;
 import jsp.hospital_appointment_system.repository.AppointmentRepository;
 import jsp.hospital_appointment_system.repository.DoctorRepository;
+import jsp.hospital_appointment_system.repository.MedicalRepository;
 import jsp.hospital_appointment_system.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,9 @@ public class PatientService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private MedicalRepository medicalRepository;
 
     public ResponseDto<Patient> createPatient(Patient patient) {
 
@@ -175,5 +180,20 @@ public class PatientService {
                 .data(patients)
                 .build();
 
+    }
+
+
+    public ResponseDto<Patient> getByRecord(Long id) {
+
+        MedicalRecord record = medicalRepository.findById(id)
+                .orElseThrow(() -> new MedicalRecordException("medical record unavailable"));
+
+        Patient patient = patientRepository.findById(record.getPatient().getPatientId())
+                .orElseThrow(() -> new NoPatientAvailableException("no patient exists"));
+        return ResponseDto.<Patient>builder()
+                .status(HttpStatus.OK)
+                .message("Success")
+                .data(patient)
+                .build();
     }
 }

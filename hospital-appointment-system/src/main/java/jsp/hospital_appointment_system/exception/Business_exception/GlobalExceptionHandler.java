@@ -91,4 +91,16 @@ public class GlobalExceptionHandler {
                 .message(exception.getMessage())
                 .build();
     }
+
+
+
+    //------------------------------------MedicalRecord exception--------------------------------------------------//
+    @ExceptionHandler(MedicalRecordException.class)
+    public ExceptionResponseDto medicalRecordException(MedicalRecordException exception)
+    {
+        return ExceptionResponseDto.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message(exception.getMessage())
+                .build();
+    }
 }

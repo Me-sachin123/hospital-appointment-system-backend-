@@ -1,0 +1,17 @@
+[33mcommit dda703841c6883687a807007fb7c90dfca3df092[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Sachin <sachinpatil272003@gmail.com>
+Date:   Fri Sep 11 11:45:30 2026 +0530
+
+    feat:appointment module implemeted
+
+[33mcommit ad889966ab99f9a1a2f49584b102b681b0ef5f9c[m
+Author: Sachin <sachinpatil272003@gmail.com>
+Date:   Thu Sep 10 21:06:00 2026 +0530
+
+    implemnted doctor module
+
+[33mcommit 0c48f8190370d762a1d191bb5d7fc702d7d2eeda[m
+Author: Sachin <sachinpatil272003@gmail.com>
+Date:   Wed Sep 9 13:39:31 2026 +0530
+
+    feat: implement department module

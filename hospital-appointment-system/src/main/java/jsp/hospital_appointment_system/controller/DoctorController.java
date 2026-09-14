@@ -58,9 +58,19 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.updateAvailability(doctor));
     }
 
-    //impl getByAppointment
+    @GetMapping("appointment/{id}")
+    public ResponseEntity<ResponseDto<Doctor>> getDoctorByAppointment(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(doctorService.getDoctorByAppointment(id));
+    }
 
 
-    //impl getByPatient
+
+    @GetMapping("patient")
+    public ResponseEntity<ResponseDto<List<Doctor>>> getByPatient(@RequestParam Long id)
+    {
+        return ResponseEntity.ok(doctorService.getByPatient(id));
+    }
+    //impl getByPat
 
 }

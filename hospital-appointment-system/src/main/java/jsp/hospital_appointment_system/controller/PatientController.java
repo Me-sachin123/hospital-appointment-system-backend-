@@ -4,6 +4,7 @@ import jsp.hospital_appointment_system.dto.ResponseDto;
 import jsp.hospital_appointment_system.modal.Doctor;
 import jsp.hospital_appointment_system.modal.Patient;
 import jsp.hospital_appointment_system.service.PatientService;
+import jsp.hospital_appointment_system.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,11 @@ public class PatientController {
        return ResponseEntity.ok(patientService.getByAppointment(id));
    }
 
-    //get by medical record
+    @GetMapping("record/{id}")
+    public ResponseEntity<ResponseDto<Patient>> getByRecord(@PathVariable Long id)
+    {
+        return ResponseEntity.ok(patientService.getByRecord(id));
+    }
 
     @GetMapping("doctor/{id}")
     public ResponseEntity<ResponseDto<List<Patient>>> getByDoctor(@PathVariable Long id)

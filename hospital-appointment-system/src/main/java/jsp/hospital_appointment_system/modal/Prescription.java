@@ -23,7 +23,6 @@ public class Prescription {
     private String instruction;
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name="record_id")
     private MedicalRecord medicalRecord;
 }
