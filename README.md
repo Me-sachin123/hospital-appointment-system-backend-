@@ -18,8 +18,6 @@ A backend Hospital Appointment System built with **Spring Boot**, **Spring Data 
 ---
 
 ## 📁 Project Structure
-
-```text
 jsp.hospital_appointment_system
  ├── configuration
  │    ├── SecurityConfig
@@ -62,12 +60,15 @@ jsp.hospital_appointment_system
  └── exception
       ├── Custom Exceptions
       └── GlobalExceptionHandler
+      
 🧩 Entity Overview
+
 Department
 Field	Type
 departmentId (PK)	Long
 departmentName	String
 doctors	List<Doctor>
+
 Doctor
 Field	Type
 doctorId (PK)	Long
@@ -77,6 +78,7 @@ availability	List<DayOfWeek>
 department	Department
 appointments	List<Appointment>
 records	List<MedicalRecord>
+
 Patient
 Field	Type
 patientId (PK)	Long
@@ -87,6 +89,7 @@ instruction	String
 contact	String (unique)
 appointments	List<Appointment>
 medicalRecords	List<MedicalRecord>
+
 Appointment
 Field	Type
 appointmentId (PK)	Long
@@ -94,6 +97,7 @@ appointmentDateTime	LocalDateTime
 status	Status
 doctor	Doctor
 patient	Patient
+
 MedicalRecord
 Field	Type
 recordId (PK)	Long
@@ -103,6 +107,7 @@ visitDate	LocalDate
 doctor	Doctor
 patient	Patient
 prescription	Prescription
+
 Prescription
 Field	Type
 prescriptionId (PK)	Long
@@ -110,12 +115,14 @@ medicine	String
 dosage	String
 instruction	String
 medicalRecord	MedicalRecord
+
 User
 Field	Type
 id (PK)	Long
 userName	String (unique)
 passWord	String
 roles	List<Role>
+
 🔗 Relationships
 Relationship	Cardinality
 Department → Doctor	1 : N
@@ -124,6 +131,7 @@ Patient → Appointment	1 : N
 Doctor → MedicalRecord	1 : N
 Patient → MedicalRecord	1 : N
 MedicalRecord → Prescription	1 : 1
+
 🔑 Foreign Keys
 Table	Foreign Key	References
 Doctor	department_id	Department.departmentId
@@ -132,6 +140,7 @@ Appointment	patient_id	Patient.patientId
 MedicalRecord	doctor_id	Doctor.doctorId
 MedicalRecord	patient_id	Patient.patientId
 Prescription	record_id	MedicalRecord.recordId
+
 🔢 Enums
 Doctor Availability
 SUNDAY
@@ -141,6 +150,7 @@ WEDNESDAY
 THURSDAY
 FRIDAY
 SATURDAY
+
 Appointment Status
 PENDING
 CONFIRMED
@@ -150,6 +160,7 @@ User Roles
 USER
 DOCTOR
 ADMIN
+
 🔐 Security & Authentication
 
 The application uses Spring Security and JWT for stateless authentication and role-based authorization.
@@ -176,13 +187,16 @@ JWT Validation
 SecurityContext
         ↓
 Role-Based Authorization
+
 Authorization
 /security/**  → Public
 
 /patient/**   → USER, ADMIN
 
 /doctor/**    → DOCTOR, ADMIN
+
 Security Features
+
 JWT-based authentication
 Stateless session management
 BCrypt password encoding
@@ -192,7 +206,10 @@ Custom AuthenticationEntryPoint for 401 Unauthorized
 Custom AccessDeniedHandler for 403 Forbidden
 Form login disabled
 HTTP Basic authentication disabled
+
+
 ⚙️ Key Implementation Notes
+
 @JsonIgnore is used on selected back-references to prevent infinite recursion during JSON serialization of bidirectional JPA relationships.
 @ElementCollection + @Enumerated(EnumType.STRING) is used for Doctor.availability because it stores a list of enum values.
 @JoinColumn is used on owning sides to define foreign-key columns.
@@ -274,6 +291,7 @@ Status	Meaning
 403	Insufficient permissions
 404	Resource not found
 500	Internal server error
+
 📌 Project Status
 
 🚀 Backend completed with core hospital management functionality and JWT-based security.
@@ -290,8 +308,7 @@ Bean validation
 Global exception handling
 JWT authentication
 Role-based authorization
+
 👤 Author
-
 Sachin
-
 Java | Spring Boot | Spring Security | JPA | MySQL
